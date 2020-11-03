@@ -4,6 +4,7 @@ import Browser
 import Games
 import Html exposing (..)
 import Html.Events exposing (onClick)
+import Random
 
 
 main : Program () Model Msg
@@ -17,34 +18,39 @@ main =
 
 
 type alias Model =
-    { showWinner : Bool }
+    { winner : Maybe Games.Game }
 
 
 type Msg
     = Clicked
+    | ReceivedRandomGame Games.Game
 
 
-update : Msg -> Model -> ( Model, Cmd msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Clicked ->
-            ( { showWinner = not model.showWinner }, Cmd.none )
+            ( model, Random.generate ReceivedRandomGame Games.generator )
+
+        ReceivedRandomGame randomGame ->
+            ( { winner = Just randomGame }, Cmd.none )
 
 
 init : flags -> ( Model, Cmd msg )
 init flags =
-    ( { showWinner = False }, Cmd.none )
+    ( { winner = Nothing }, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
     let
         winner =
-            if model.showWinner then
-                "me!"
+            case model.winner of
+                Nothing ->
+                    ""
 
-            else
-                ""
+                Just winningGame ->
+                    winningGame.name
     in
     section []
         [ h1 []
