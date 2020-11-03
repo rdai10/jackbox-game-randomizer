@@ -1,4 +1,6 @@
-module Games exposing (Game, GameType(..), Pack(..), all)
+module Games exposing (Game, GameType(..), Pack(..), all, generator)
+
+import Random exposing (Generator)
 
 
 type alias Game =
@@ -24,16 +26,30 @@ type Pack
 
 all : List Game
 all =
-    [ { name = "You Don't Know Jack 2015"
-      , minParticipant = 1
-      , maxParticipant = 4
-      , gameType = Trivia
-      , pack = PartyPack
-      }
-    , { name = "Drawful"
+    default :: rest
+
+
+default : Game
+default =
+    { name = "You Don't Know Jack 2015"
+    , minParticipant = 1
+    , maxParticipant = 4
+    , gameType = Trivia
+    , pack = PartyPack
+    }
+
+
+rest : List Game
+rest =
+    [ { name = "Drawful"
       , minParticipant = 3
       , maxParticipant = 8
       , gameType = Drawing
       , pack = PartyPack
       }
     ]
+
+
+generator : Generator Game
+generator =
+    Random.uniform default rest
