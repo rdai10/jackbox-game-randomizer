@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Browser
+import Games
 import Html exposing (..)
 import Html.Events exposing (onClick)
 
