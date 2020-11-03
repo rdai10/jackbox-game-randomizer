@@ -8,7 +8,12 @@ import Html.Events exposing (onClick)
 
 main : Program () Model Msg
 main =
-    Browser.sandbox { view = view, update = update, init = init }
+    Browser.element
+        { subscriptions = \_ -> Sub.none
+        , view = view
+        , update = update
+        , init = init
+        }
 
 
 type alias Model =
@@ -19,16 +24,16 @@ type Msg
     = Clicked
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
     case msg of
         Clicked ->
-            { showWinner = not model.showWinner }
+            ( { showWinner = not model.showWinner }, Cmd.none )
 
 
-init : Model
-init =
-    { showWinner = False }
+init : flags -> ( Model, Cmd msg )
+init flags =
+    ( { showWinner = False }, Cmd.none )
 
 
 view : Model -> Html Msg
