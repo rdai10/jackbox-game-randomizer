@@ -22,6 +22,11 @@ type GameType
 type Pack
     = PartyPack
     | PartyPack2
+    | PartyPack3
+    | PartyPack4
+    | PartyPack5
+    | PartyPack6
+    | PartyPack7
 
 
 all : List Game
@@ -45,6 +50,24 @@ rest =
       , minParticipant = 3
       , maxParticipant = 8
       , gameType = Drawing
+      , pack = PartyPack
+      }
+    , { name = "Word Spud"
+      , minParticipant = 2
+      , maxParticipant = 8
+      , gameType = Other
+      , pack = PartyPack
+      }
+    , { name = "Lie Swatter"
+      , minParticipant = 1
+      , maxParticipant = 100
+      , gameType = Trivia
+      , pack = PartyPack
+      }
+    , { name = "Fibbage XL"
+      , minParticipant = 2
+      , maxParticipant = 8
+      , gameType = Trivia
       , pack = PartyPack
       }
     ]
